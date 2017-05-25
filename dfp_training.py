@@ -438,6 +438,7 @@ def main(argv = None):
         weights_tmp, biases, dynamic_range = initialize_variables(PREV_MODEL_EXIST,  parent_dir, q_bits, pretrain,'weights/base_prune.pkl', central_value, c_pos, c_neg)
 
         keys = ['cov1', 'cov2', 'fc1', 'fc2', 'fc3']
+        weights = {}
         for key in keys:
             weights[key] = weights_tmp[key] * weights_mask[key]
 
