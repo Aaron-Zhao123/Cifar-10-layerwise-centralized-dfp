@@ -435,7 +435,7 @@ def main(argv = None):
 
         training_data_list = []
 
-        weights_tmp, biases, dynamic_range = initialize_variables(PREV_MODEL_EXIST, parent_dir, q_bits, pretrain, central_value, c_pos, c_neg)
+        weights_tmp, biases, dynamic_range = initialize_variables(PREV_MODEL_EXIST,  parent_dir, q_bits, pretrain,'weights/base_prune.pkl', central_value, c_pos, c_neg)
 
         keys = ['cov1', 'cov2', 'fc1', 'fc2', 'fc3']
         for key in keys:
