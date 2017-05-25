@@ -399,6 +399,8 @@ def main(argv = None):
                     c_neg = val
                 if (opt == '-central_value'):
                     central_value = val
+                if (opt == '-read_only'):
+                    READ_ONLY = val
             print('pretrain is {}'.format(pretrain))
         except getopt.error, msg:
             raise Usage(msg)
