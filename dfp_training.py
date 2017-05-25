@@ -49,15 +49,12 @@ def _variable_on_cpu(name, shape, initializer):
         var = tf.get_variable(name, shape, initializer=initializer, dtype=dtype)
     return var
 
-def initialize_variables(exist, parent_dir, q_bits, pretrain, central_value,
+def initialize_variables(exist, parent_dir, q_bits , pretrain, base_model, central_value,
     c_pos, c_neg):
     NUM_CHANNELS = 3
     IMAGE_SIZE = 32
     NUM_CLASSES = 10
-    if (pretrain):
-        file_name = parent_dir + 'weights/'+ 'base_prune.pkl'
-    else:
-        file_name = parent_dir + 'weights/'+ 'base_prune' +'.pkl'
+    file_name = parent_dir + base_model
     if (exist == 1):
         with open(file_name, 'rb') as f:
             (weights_val, biases_val) = pickle.load(f)
@@ -75,6 +72,7 @@ def initialize_variables(exist, parent_dir, q_bits, pretrain, central_value,
             'fc2': tf.Variable(biases_val['fc2']),
             'fc3': tf.Variable(biases_val['fc3'])
         }
+
     print("RANGE TEST: Determine dynamic range")
     print(80*"-")
     dynamic_range = {}
@@ -437,11 +435,11 @@ def main(argv = None):
 
         training_data_list = []
 
-        weights, biases, dynamic_range = initialize_variables(PREV_MODEL_EXIST, parent_dir, q_bits, pretrain, central_value, c_pos, c_neg)
+        weights_tmp, biases, dynamic_range = initialize_variables(PREV_MODEL_EXIST, parent_dir, q_bits, pretrain, central_value, c_pos, c_neg)
 
         keys = ['cov1', 'cov2', 'fc1', 'fc2', 'fc3']
         for key in keys:
-            weights[key] = weights[key] * weights_mask[key]
+            weights[key] = weights_tmp[key] * weights_mask[key]
 
         weights, biases = compute_weights_nbits(weights, weights_mask, biases,
             q_bits, dynamic_range, central_value, c_pos, c_neg)
@@ -506,16 +504,16 @@ def main(argv = None):
 
             print('pre train pruning info')
             prune_info(weights, 0)
-            print(78*'-')
-            print('start save these pre trained weights')
-            keys = ['cov1','cov2','fc1','fc2','fc3']
-            weights_save = {}
-            biases_save = {}
-            for key in keys:
-                weights_save[key] = weights[key].eval()
-                biases_save[key] = biases[key].eval()
-            with open(parent_dir + 'weights/'+ 'weights'+str(q_bits)+'.pkl','wb') as f:
-                pickle.dump((weights_save, biases_save),f)
+            # print(78*'-')
+            # print('start save these pre trained weights')
+            # keys = ['cov1','cov2','fc1','fc2','fc3']
+            # weights_save = {}
+            # biases_save = {}
+            # for key in keys:
+            #     weights_save[key] = weights[key].eval()
+            #     biases_save[key] = biases[key].eval()
+            # with open(parent_dir + 'weights/'+ 'weights'+str(q_bits)+'.pkl','wb') as f:
+            #     pickle.dump((weights_save, biases_save),f)
 
             start = time.time()
             if TRAIN == 1:
