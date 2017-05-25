@@ -2,6 +2,7 @@ import os
 import dfp_training
 import pickle
 import numpy as np
+import sys
 def dump_to_txt_files(pt_acc_list, acc_list):
     with open("ptacc_cifar_quantize_han.txt", "w") as f:
         for item in pt_acc_list:
@@ -35,6 +36,9 @@ for key in keys:
     pos_minus = np.logical_and((weights_val[key]* weights_mask[key]) <= central_value[key], weights_mask[key])
     c_pos[key] = np.mean(weights_val[key][pos_plus])
     c_neg[key] = np.mean(weights_val[key][pos_minus])
+    tmp = weights_val[key]
+    print('nozeros{}, total{}'.format(tmp[tmp!=0], len(tmp.flatten())))
+sys.exit()
 
 print(central_value)
 print(c_pos)
