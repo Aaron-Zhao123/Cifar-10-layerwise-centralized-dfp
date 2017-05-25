@@ -437,6 +437,10 @@ def main(argv = None):
 
         training_data_list = []
 
+        keys = ['cov1', 'cov2', 'fc1', 'fc2', 'fc3']
+        for key in keys:
+            weights[key] = weights[key] * weights_mask[key]
+
         weights, biases, dynamic_range = initialize_variables(PREV_MODEL_EXIST, parent_dir, q_bits, pretrain, central_value, c_pos, c_neg)
         weights, biases = compute_weights_nbits(weights, weights_mask, biases,
             q_bits, dynamic_range, central_value, c_pos, c_neg)
