@@ -36,7 +36,7 @@ for key in keys:
     pos_minus = np.logical_and((weights_val[key]* weights_mask[key]) <= central_value[key], weights_mask[key])
     c_pos[key] = np.mean(weights_val[key][pos_plus])
     c_neg[key] = np.mean(weights_val[key][pos_minus])
-    tmp = weights_val[key]
+    tmp = weights_val[key]* weights_mask[key]
     print('nozeros{}, total{}'.format((tmp!=0).sum(), len(tmp.flatten())))
 sys.exit()
 
