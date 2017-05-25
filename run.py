@@ -51,7 +51,8 @@ quantisation_bits = [item - 1 for item in quantisation_bits]
 pcov = [0,0]
 dynamic_range = 4
 # READ_ONLY = True
-READ_ONLY = False
+READ_ONLY = True
+
 for q_width in quantisation_bits:
     # measure acc
     param = [
@@ -78,7 +79,6 @@ for q_width in quantisation_bits:
         ('-read_only',READ_ONLY)
         ]
     train_acc = dfp_training.main(param)
-    train_acc = 0
 
     pt_acc_list.append(pre_train_acc)
     acc_list.append(train_acc)
