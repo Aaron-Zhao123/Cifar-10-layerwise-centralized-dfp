@@ -152,7 +152,7 @@ def prune_info(weights, counting):
         print('fc3 has prunned {} percent of its weights'.format((total-non_zeros)*100/total))
         print('some numbers: non zeros:{}, total:{}'.format(non_zeros, total))
     if (counting == 1):
-        (non_zeros, total) = calculate_non_zero_weights(weights['fc1'].eval())
+        (non_zeros, total) = calculate_non_zero_weights(weights['fc1'])
         print('take fc1 as example, {} nonzeros, in total {} weights'.format(non_zeros, total))
 def plot_weights(weights,pruning_info):
         keys = ['cov1','cov2','fc1', 'fc2','fc2']
@@ -504,8 +504,9 @@ def main(argv = None):
                 # sess.run(biases[key].assign(biases[key].eval()*biases_mask[key]))
 
             print('pre train pruning info')
-            prune_info(weights, 0)
-            prune_info(weights_org, 0)
+            prune_info(weights_mask, 1)
+            # prune_info(weights, 0)
+            # prune_info(weights_org, 0)
             # print(78*'-')
             # print('start save these pre trained weights')
             # keys = ['cov1','cov2','fc1','fc2','fc3']
