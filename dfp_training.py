@@ -568,7 +568,7 @@ def main(argv = None):
                                 biases_save = {}
                                 for key in keys:
                                     weights_save[key] = weights_tmp[key].eval()
-                                    biases_save[key] = weights_tmp[key].eval()
+                                    biases_save[key] = biases[key].eval()
                                 with open(parent_dir + 'weights/'+ 'weightspt'+str(q_bits)+'.pkl','wb') as f:
                                     pickle.dump((weights_save, biases_save),f)
                                 if (best_test_acc > threshold):
@@ -585,7 +585,7 @@ def main(argv = None):
                     biases_save = {}
                     for key in keys:
                         weights_save[key] = weights_tmp[key].eval()
-                        biases_save[key] = weights_tmp[key].eval()
+                        biases_save[key] = biases[key].eval()
                     with open(parent_dir + 'weights/'+ 'weightspt'+str(q_bits)+'.pkl','wb') as f:
                         pickle.dump((weights_save, biases_save),f)
 
