@@ -420,7 +420,7 @@ def main(argv = None):
         PREV_MODEL_EXIST = 1
 
 
-        (weights_mask,biases_mask)= initialize_weights_mask(0, mask_dir + 'masks/base_prune')
+        (weights_mask,biases_mask)= initialize_weights_mask(0, mask_dir + 'masks/base_prune.pkl')
         cifar10.maybe_download_and_extract()
         class_names = cifar10.load_class_names()
 
