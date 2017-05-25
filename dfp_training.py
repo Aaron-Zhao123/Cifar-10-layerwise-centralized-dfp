@@ -55,9 +55,9 @@ def initialize_variables(exist, parent_dir, q_bits, pretrain, central_value,
     IMAGE_SIZE = 32
     NUM_CLASSES = 10
     if (pretrain):
-        file_name = parent_dir + 'weights/'+ 'base.pkl'
+        file_name = parent_dir + 'weights/'+ 'base_prune.pkl'
     else:
-        file_name = parent_dir + 'weights/'+ 'weights' + str(q_bits) +'.pkl'
+        file_name = parent_dir + 'weights/'+ 'base_prune' +'.pkl'
     if (exist == 1):
         with open(file_name, 'rb') as f:
             (weights_val, biases_val) = pickle.load(f)
@@ -557,7 +557,7 @@ def main(argv = None):
                                 for key in keys:
                                     weights_save[key] = weights[key].eval()
                                     biases_save[key] = biases[key].eval()
-                                with open(parent_dir + 'weights/'+ 'weights'+str(q_bits)+'.pkl','wb') as f:
+                                with open(parent_dir + 'weights/'+ 'weightspt'+str(q_bits)+'.pkl','wb') as f:
                                     pickle.dump((weights_save, biases_save),f)
                                 if (best_test_acc > threshold):
                                     print('Exiting the training, test accuracy is {}'.format(test_acc))
@@ -574,7 +574,7 @@ def main(argv = None):
                     for key in keys:
                         weights_save[key] = weights[key].eval()
                         biases_save[key] = biases[key].eval()
-                    with open(parent_dir + 'weights/'+ 'weights'+str(q_bits)+'.pkl','wb') as f:
+                    with open(parent_dir + 'weights/'+ 'weightspt'+str(q_bits)+'.pkl','wb') as f:
                         pickle.dump((weights_save, biases_save),f)
 
 
