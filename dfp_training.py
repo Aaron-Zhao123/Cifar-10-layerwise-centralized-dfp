@@ -55,6 +55,8 @@ def initialize_variables(exist, parent_dir, q_bits , pretrain, base_model, centr
     IMAGE_SIZE = 32
     NUM_CLASSES = 10
     file_name = parent_dir + base_model
+    print(file_name)
+    sys.exit()
     if (exist == 1):
         with open(file_name, 'rb') as f:
             (weights_val, biases_val) = pickle.load(f)
@@ -440,6 +442,7 @@ def main(argv = None):
             w_name = 'weightspt'+str(q_bits)+'.pkl'
         else:
             w_name = base_model
+
         weights_tmp, biases, dynamic_range = initialize_variables(PREV_MODEL_EXIST,  parent_dir, q_bits, pretrain,'weights/' + w_name, central_value, c_pos, c_neg)
 
         keys = ['cov1', 'cov2', 'fc1', 'fc2', 'fc3']
