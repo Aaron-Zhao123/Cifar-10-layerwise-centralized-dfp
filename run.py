@@ -25,7 +25,7 @@ c_pos = {}
 c_neg = {}
 with open('./masks/' + base_model,'rb') as f:
     (weights_mask, biases_mask) = pickle.load(f)
-with open('./weights' + base_model, 'rb') as f:
+with open('./weights/' + base_model, 'rb') as f:
     (weights_val, biases_val) = pickle.load(f)
 
 for key in keys:
