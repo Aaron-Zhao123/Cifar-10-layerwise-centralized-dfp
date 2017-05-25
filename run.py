@@ -61,7 +61,7 @@ for q_width in quantisation_bits:
         ('-base_model', base_model),
         ('-c_pos', c_pos),
         ('-c_neg', c_neg),
-        ('-central_value', central_value)
+        ('-central_value', central_value),
         ('-read_only',READ_ONLY)
         ]
     pre_train_acc = dfp_training.main(param)
