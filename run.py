@@ -50,7 +50,7 @@ quantisation_bits = [4, 6, 8]
 quantisation_bits = [item - 1 for item in quantisation_bits]
 pcov = [0,0]
 dynamic_range = 4
-READ_ONLY = False
+READ_ONLY = True
 for q_width in quantisation_bits:
     # measure acc
     param = [

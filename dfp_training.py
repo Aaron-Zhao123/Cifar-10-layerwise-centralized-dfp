@@ -501,7 +501,6 @@ def main(argv = None):
         accuracy_list = np.zeros(10)
         # Launch the graph
         print('Graph launching ..')
-        best_test_acc = 0
         with tf.Session() as sess:
             sess.run(init)
 
@@ -524,9 +523,9 @@ def main(argv = None):
             #     biases_save[key] = biases[key].eval()
             # with open(parent_dir + 'weights/'+ 'weights'+str(q_bits)+'.pkl','wb') as f:
             #     pickle.dump((weights_save, biases_save),f)
-
+            best_test_acc = 0
             start = time.time()
-            if TRAIN == 1:
+            if (TRAIN and READ_ONLY == False):
                 for i in range(0,60000):
                     (batch_x, batch_y) = t_data.feed_next_batch(BATCH_SIZE)
                     train_acc, cross_en = sess.run([accuracy, loss_value], feed_dict = {
