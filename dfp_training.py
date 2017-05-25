@@ -497,7 +497,6 @@ def main(argv = None):
 
 
         init = tf.global_variables_initializer()
-        accuracy_list = np.zeros(30)
         accuracy_list = np.zeros(10)
         # Launch the graph
         print('Graph launching ..')
@@ -544,7 +543,7 @@ def main(argv = None):
                         ))
                         # accuracy_list = np.concatenate((np.array([train_acc]),accuracy_list[0:29]))
                         accuracy_list = np.concatenate((np.array([train_acc]),accuracy_list[0:9]))
-                        if ((np.mean(accuracy_list) > 0.8 and train_acc > 0.83) or train_acc > 0.88):
+                        if ((np.mean(accuracy_list) > 0.8 and train_acc > 0.82) or train_acc > 0.88):
                             print("training accuracy is large, show the list: {}".format(accuracy_list))
                             NUMBER_OF_BATCH = 10000 / BATCH_SIZE
                             t_acc = []
