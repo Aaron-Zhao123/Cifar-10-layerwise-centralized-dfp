@@ -49,7 +49,8 @@ def _variable_on_cpu(name, shape, initializer):
         var = tf.get_variable(name, shape, initializer=initializer, dtype=dtype)
     return var
 
-def initialize_variables(exist, parent_dir, q_bits , pretrain):
+def initialize_variables(exist, parent_dir, q_bits, pretrain, central_value,
+    c_pos, c_neg):
     NUM_CHANNELS = 3
     IMAGE_SIZE = 32
     NUM_CLASSES = 10
@@ -436,7 +437,7 @@ def main(argv = None):
 
         training_data_list = []
 
-        weights, biases, dynamic_range = initialize_variables(PREV_MODEL_EXIST, parent_dir, q_bits, pretrain)
+        weights, biases, dynamic_range = initialize_variables(PREV_MODEL_EXIST, parent_dir, q_bits, pretrain, central_value, c_pos, c_neg)
         weights, biases = compute_weights_nbits(weights, weights_mask, biases,
             q_bits, dynamic_range, central_value, c_pos, c_neg)
 
