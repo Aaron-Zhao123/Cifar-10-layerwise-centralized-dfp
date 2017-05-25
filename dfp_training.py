@@ -84,14 +84,14 @@ def initialize_variables(exist, parent_dir, q_bits , pretrain):
                                                                 np.max(value),
                                                                 np.min(value)))
         print("testing biases {}, max is {}, min is {}".format(key,
-                                                                np.max(biase_val[key]),
-                                                                np.min(biase_val[key])))
+                                                                np.max(biases_val[key]),
+                                                                np.min(biases_val[key])))
         reg_plus = value[value > central_value[key]] - c_pos[key]
         reg_minus = value[value <= central_value[key]] - c_neg[key]
         reg_weights = np.concatenate((reg_plus.flatten(), reg_minus.flatten()), axis = 0)
 
         d_range_weights = find_scaling_factor(reg_weights)
-        d_range_biases = find_scaling_factor(biase_val[key])
+        d_range_biases = find_scaling_factor(biases_val[key])
         # print("scale for this layer is {}".format(d_range))
         dynamic_range[key] = [d_range_weights, d_range_biases]
     print("entire scale factor list: {}".format(dynamic_range))
