@@ -38,7 +38,7 @@ for key in keys:
     c_neg[key] = np.mean(weights_val[key][pos_minus])
     tmp = weights_val[key]* weights_mask[key]
     print('nozeros{}, total{}'.format((tmp!=0).sum(), len(tmp.flatten())))
-sys.exit()
+# sys.exit()
 
 print(central_value)
 print(c_pos)

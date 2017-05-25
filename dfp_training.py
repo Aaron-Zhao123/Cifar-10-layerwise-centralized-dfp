@@ -421,7 +421,7 @@ def main(argv = None):
         PREV_MODEL_EXIST = 1
 
 
-        (weights_mask,biases_mask)= initialize_weights_mask(0, mask_dir + 'masks/' + base_model )
+        (weights_mask,biases_mask)= initialize_weights_mask(0, mask_dir + 'masks/base_prune')
         cifar10.maybe_download_and_extract()
         class_names = cifar10.load_class_names()
 
@@ -440,9 +440,9 @@ def main(argv = None):
         keys = ['cov1', 'cov2', 'fc1', 'fc2', 'fc3']
         weights = {}
         for key in keys:
-            weights[key] = weights_tmp[key] * weights_mask[key]
+            weights_org[key] = weights_tmp[key] * weights_mask[key]
 
-        weights, biases = compute_weights_nbits(weights, weights_mask, biases,
+        weights, biases = compute_weights_nbits(weights_org, weights_mask, biases,
             q_bits, dynamic_range, central_value, c_pos, c_neg)
 
         x = tf.placeholder(tf.float32, [None, 32, 32, 3])
@@ -505,6 +505,7 @@ def main(argv = None):
 
             print('pre train pruning info')
             prune_info(weights, 0)
+            prune_info(weights_org, 0)
             # print(78*'-')
             # print('start save these pre trained weights')
             # keys = ['cov1','cov2','fc1','fc2','fc3']
