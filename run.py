@@ -46,9 +46,11 @@ print(c_neg)
 # quantisation_bits = [2, 4, 8, 16]
 # 1 bit sign, 2 bits range
 quantisation_bits = [4, 6, 8, 16, 32]
+quantisation_bits = [4, 6, 8]
 quantisation_bits = [item - 1 for item in quantisation_bits]
 pcov = [0,0]
 dynamic_range = 4
+READ_ONLY = True
 for q_width in quantisation_bits:
     # measure acc
     param = [
@@ -60,6 +62,7 @@ for q_width in quantisation_bits:
         ('-c_pos', c_pos),
         ('-c_neg', c_neg),
         ('-central_value', central_value)
+        ('-read_only',READ_ONLY)
         ]
     pre_train_acc = dfp_training.main(param)
     param = [
@@ -72,7 +75,8 @@ for q_width in quantisation_bits:
         ('-c_neg', c_neg),
         ('-central_value', central_value)
         ]
-    train_acc = dfp_training.main(param)
+    # train_acc = dfp_training.main(param)
+    train_acc = 0
 
     pt_acc_list.append(pre_train_acc)
     acc_list.append(train_acc)

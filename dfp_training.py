@@ -420,7 +420,7 @@ def main(argv = None):
         PREV_MODEL_EXIST = 1
 
 
-        (weights_mask,biases_mask)= initialize_weights_mask(0, mask_dir + 'masks/base_prune.pkl')
+        (weights_mask,biases_mask)= initialize_weights_mask(0, mask_dir + 'masks/'+ base_model)
         cifar10.maybe_download_and_extract()
         class_names = cifar10.load_class_names()
 
@@ -434,7 +434,11 @@ def main(argv = None):
 
         training_data_list = []
 
-        weights_tmp, biases, dynamic_range = initialize_variables(PREV_MODEL_EXIST,  parent_dir, q_bits, pretrain,'weights/base_prune.pkl', central_value, c_pos, c_neg)
+        if (READ_ONLY):
+            w_name = 'weightspt'+str(q_bits)+'.pkl'
+        else:
+            w_name = base_model
+        weights_tmp, biases, dynamic_range = initialize_variables(PREV_MODEL_EXIST,  parent_dir, q_bits, pretrain,'weights/' + w_name, central_value, c_pos, c_neg)
 
         keys = ['cov1', 'cov2', 'fc1', 'fc2', 'fc3']
         weights_org = {}
@@ -537,7 +541,7 @@ def main(argv = None):
                         ))
                         # accuracy_list = np.concatenate((np.array([train_acc]),accuracy_list[0:29]))
                         accuracy_list = np.concatenate((np.array([train_acc]),accuracy_list[0:9]))
-                        if (np.mean(accuracy_list) > 0.8):
+                        if ((np.mean(accuracy_list) > 0.8 and train_acc > 0.83) or train_acc > 0.88):
                             print("training accuracy is large, show the list: {}".format(accuracy_list))
                             NUMBER_OF_BATCH = 10000 / BATCH_SIZE
                             t_acc = []
@@ -581,6 +585,7 @@ def main(argv = None):
                         biases_save[key] = biases[key].eval()
                     with open(parent_dir + 'weights/'+ 'weightspt'+str(q_bits)+'.pkl','wb') as f:
                         pickle.dump((weights_save, biases_save),f)
+
 
 
             if (best_test_acc == 0):
