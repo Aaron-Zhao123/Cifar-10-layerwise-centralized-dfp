@@ -114,7 +114,6 @@ def find_scaling_factor(value):
 def initialize_weights_mask(first_time_training, mask_dir):
     NUM_CHANNELS = 3
     NUM_CLASSES = 10
-    first_time_training = 1 # temp solution
     if (first_time_training == 1):
         print('setting initial mask value')
         weights_mask = {
@@ -504,8 +503,8 @@ def main(argv = None):
                 # sess.run(biases[key].assign(biases[key].eval()*biases_mask[key]))
 
             print('pre train pruning info')
-            prune_info(weights_mask, 1)
-            # prune_info(weights, 0)
+            # prune_info(weights_mask, 1)
+            prune_info(weights, 0)
             # prune_info(weights_org, 0)
             # print(78*'-')
             # print('start save these pre trained weights')
