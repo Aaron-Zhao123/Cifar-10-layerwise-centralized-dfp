@@ -47,7 +47,7 @@ print(c_neg)
 # 1 bit sign, 2 bits range
 quantisation_bits = [4, 6, 8, 16, 32]
 # quantisation_bits = [6]
-quantisation_bits = [item - 1 for item in quantisation_bits]
+quantisation_bits = [item - 2 for item in quantisation_bits]
 # READ_ONLY = True
 READ_ONLY = False
 for q_width in quantisation_bits:
