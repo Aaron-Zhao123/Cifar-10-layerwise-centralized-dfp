@@ -94,7 +94,7 @@ def initialize_variables(exist, parent_dir, q_bits , pretrain, base_model, centr
         d_range_biases = find_scaling_factor(biases_val[key])
         # print("scale for this layer is {}".format(d_range))
         dynamic_range[key] = [d_range_weights, d_range_biases]
-    dynamic_range = {'cov1': [1.0, 2.0], 'cov2': [1.0, 1.0], 'fc3': [0.25, 0.5], 'fc2': [0.25, 1.0], 'fc1': [0.25, 1.0]}
+    dynamic_range = {'cov1': [1.0, 2.0], 'cov2': [1.0, 1.0], 'fc3': [0.25, 0.5], 'fc2': [0.125, 1.0], 'fc1': [0.125, 1.0]}
     print("entire scale factor list: {}".format(dynamic_range))
     return (weights, biases, dynamic_range)
 
