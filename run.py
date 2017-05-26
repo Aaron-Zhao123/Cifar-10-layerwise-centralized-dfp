@@ -75,7 +75,8 @@ for q_width in quantisation_bits:
         ('-central_value', central_value),
         ('-read_only',READ_ONLY)
         ]
-    train_acc = dfp_training.main(param)
+    # train_acc = dfp_training.main(param)
+    train_acc = 0
 
     pt_acc_list.append(pre_train_acc)
     acc_list.append(train_acc)
