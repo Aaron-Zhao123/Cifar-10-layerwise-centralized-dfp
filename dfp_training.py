@@ -526,7 +526,8 @@ def main(argv = None):
             best_test_acc = 0
             start = time.time()
             if (TRAIN and READ_ONLY == False):
-                for i in range(0,60000):
+                # for i in range(0,60000):
+                for i in range(0,100000):
                     (batch_x, batch_y) = t_data.feed_next_batch(BATCH_SIZE)
                     train_acc, cross_en = sess.run([accuracy, loss_value], feed_dict = {
                                     x: batch_x,
